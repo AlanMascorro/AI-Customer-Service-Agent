@@ -2,7 +2,7 @@ import google.generativeai as genai
 import sys
 import json
 
-genai.configure(api_key="AIzaSyCC8oA2UchmPrJzDSyvSGVgitDLjC9wP9U")
+genai.configure(api_key="Your key")
 model = genai.GenerativeModel("gemini-1.5-flash")
 #with open("ill.json", "r", encoding="utf-8") as f:
  #       sick_list = json.load(f)
