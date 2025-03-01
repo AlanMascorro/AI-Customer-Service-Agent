@@ -1,4 +1,10 @@
-# blossom-chat-bot
+# AI-Customer-Service-agent
+
+### Install the gemini API
+```
+pip install google-generativeai
+
+```
 
 ## Project setup
 ```
@@ -13,11 +19,6 @@ npm run serve
 ### Compiles and minifies for production
 ```
 npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
 ```
 
 ### Customize configuration
