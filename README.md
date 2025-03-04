@@ -3,8 +3,9 @@
 ### Install the gemini API
 ```
 pip install google-generativeai
-
 ```
+
+Go to the google gemini website to get a free API key
 
 ## Project setup
 ```
