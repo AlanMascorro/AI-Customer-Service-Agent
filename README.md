@@ -5,7 +5,7 @@
 pip install google-generativeai
 ```
 
-Go to the google gemini website to get a free API key
+Go to the google gemini website to get a free API key and paste them in docbot.py and doc_opinion.py
 
 ## Project setup
 ```
