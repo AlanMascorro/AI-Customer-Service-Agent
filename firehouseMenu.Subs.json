@@ -1,0 +1,513 @@
+[{
+  "_id": {
+    "$oid": "67cf7e7413ce669f7853a861"
+  },
+  "name": "Hook & Ladder",
+  "description": "Smoked turkey breast, Virginia honey ham, and Monterey Jack cheese.",
+  "price": 9.99,
+  "ingredients": [
+    "Turkey",
+    "Ham",
+    "Monterey Jack Cheese",
+    "Lettuce",
+    "Tomato",
+    "Mustard",
+    "Mayo"
+  ],
+  "category": "Sub",
+  "size_options": [
+    {
+      "size": "Small",
+      "price": 6.29
+    },
+    {
+      "size": "Medium",
+      "price": 7.99
+    },
+    {
+      "size": "Large",
+      "price": 13.79
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67cf805713ce669f7853a866"
+  },
+  "name": "Firehouse Captain's Club",
+  "description": "signature Captain Sorensen's Hot Sauce, Firehouse Hero Sauce, oven roasted chicken, melted pepper jack cheese, crushed red pepper flakes, crispy bacon, lettuce, tomato, and onions",
+  "price": 10.49,
+  "ingredients": [
+    "Captain Sorensen's Hot Sauce",
+    "Firehouse Hero Sauce",
+    "Chicken",
+    "Bacon",
+    "Pepper Jack Cheese",
+    "Red Pepper flakes",
+    "Lettuce",
+    "Tomato",
+    "Onions"
+  ],
+  "category": "Sub",
+  "size_options": [
+    {
+      "size": "Small",
+      "price": 6.79
+    },
+    {
+      "size": "Medium",
+      "price": 10.49
+    },
+    {
+      "size": "Large",
+      "price": 13.99
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67cf80e413ce669f7853a868"
+  },
+  "name": "Pepperoni Pizza Meatball",
+  "description": "Italian meatballs, marinara, extra provolone, crispy pepperoni, and Italian seasoning on a toasted garlic bread roll.",
+  "price": 10.99,
+  "ingredients": [
+    "Italian Meatballs",
+    "Narinara Sauce",
+    "Provolone Cheese",
+    "Pepperoni",
+    "Italian Seasoning"
+  ],
+  "category": "Sub",
+  "size_options": [
+    {
+      "size": "Small",
+      "price": 7.29
+    },
+    {
+      "size": "Medium",
+      "price": 10.99
+    },
+    {
+      "size": "Large",
+      "price": 14.99
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67cf81b813ce669f7853a86a"
+  },
+  "name": "Firehouse Meatball",
+  "description": "Italian meatballs, melted provolone, zesty marinara & Italian seasonings with a dill pickle spear served on the side.",
+  "price": 9.99,
+  "ingredients": [
+    "Italian Meatballs",
+    "Marinara Sauce",
+    "Provolone Cheese",
+    "Italian Seasoning"
+  ],
+  "category": "Sub",
+  "size_options": [
+    {
+      "size": "Small",
+      "price": 6.39
+    },
+    {
+      "size": "Medium",
+      "price": 9.99
+    },
+    {
+      "size": "Large",
+      "price": 13.79
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67cf824413ce669f7853a86c"
+  },
+  "name": "New York Steamer",
+  "description": "Corned beef brisket and pastrami with provolone, mustard, mayo, and Italian dressing.",
+  "price": 9.99,
+  "ingredients": [
+    "Corned Beef Brisket",
+    "Pastrami",
+    "Provolone Cheese",
+    "Mayo",
+    "Deli Mustard",
+    "Italian Dressing"
+  ],
+  "category": "Sub",
+  "size_options": [
+    {
+      "size": "Small",
+      "price": 6.29
+    },
+    {
+      "size": "Medium",
+      "price": 9.99
+    },
+    {
+      "size": "Large",
+      "price": 13.79
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67cf829213ce669f7853a86e"
+  },
+  "name": "Italian",
+  "description": "Genoa salami, pepperoni, and Virginia honey ham with provolone and Italian dressing.",
+  "price": 9.99,
+  "ingredients": [
+    "Genoa Salami",
+    "Pepperoni",
+    "Virginia Honey Ham",
+    "Provolone Cheese",
+    "Lettuce",
+    "Tomato",
+    "Onion",
+    "Mayo",
+    "Deli Mustard",
+    "Italian Dressing"
+  ],
+  "category": "Sub",
+  "size_options": [
+    {
+      "size": "Small",
+      "price": 6.29
+    },
+    {
+      "size": "Medium",
+      "price": 9.99
+    },
+    {
+      "size": "Large",
+      "price": 13.79
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67cf831a13ce669f7853a870"
+  },
+  "name": "Turkey Bacon Ranch",
+  "description": "Smoked turkey breast, bacon, sharp cheddar, lettuce, tomato, onion, and peppercorn ranch dressing.",
+  "price": 10.29,
+  "ingredients": [
+    "Smoked Turkey Breast",
+    "Bacon",
+    "Sharp Cheddar Cheese",
+    "Lettuce",
+    "Tomato",
+    "Onion",
+    "Peppercorn Ranch Dressing"
+  ],
+  "category": "Sub",
+  "size_options": [
+    {
+      "size": "Small",
+      "price": 6.99
+    },
+    {
+      "size": "Medium",
+      "price": 10.29
+    },
+    {
+      "size": "Large",
+      "price": 13.99
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67cf835313ce669f7853a872"
+  },
+  "name": "Club on a Sub",
+  "description": "Smoked turkey breast, Virginia honey ham, bacon, and Monterey Jack cheese.",
+  "price": 10.29,
+  "ingredients": [
+    "Smoked Turkey Breast",
+    "Virginia Honey Ham",
+    "Bacon",
+    "Monterey Jack Cheese",
+    "Lettuce",
+    "Tomato",
+    "Onion",
+    "Mayo",
+    "Deli Mustard"
+  ],
+  "category": "Sub",
+  "size_options": [
+    {
+      "size": "Small",
+      "price": 6.99
+    },
+    {
+      "size": "Medium",
+      "price": 10.29
+    },
+    {
+      "size": "Large",
+      "price": 13.99
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67cf838c13ce669f7853a874"
+  },
+  "name": "Engineer",
+  "description": "Smoked turkey breast, Swiss cheese, and sautéed mushrooms.",
+  "price": 9.99,
+  "ingredients": [
+    "Smoked Turkey Breast",
+    "Swiss Cheese",
+    "Sautéed Mushrooms",
+    "Lettuce",
+    "Tomato",
+    "Onion",
+    "Mayo",
+    "Deli Mustard"
+  ],
+  "category": "Sub",
+  "size_options": [
+    {
+      "size": "Small",
+      "price": 6.79
+    },
+    {
+      "size": "Medium",
+      "price": 9.99
+    },
+    {
+      "size": "Large",
+      "price": 13.99
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67cf83f013ce669f7853a876"
+  },
+  "name": "Firehouse Hero",
+  "description": "Premium roast beef, smoked turkey breast, Virginia honey ham, and provolone cheese.",
+  "price": 10.99,
+  "ingredients": [
+    "Premium Roast Beef",
+    "Smoked Turkey Breast",
+    "Virginia Honey Ham",
+    "Provolone Cheese",
+    "Lettuce",
+    "Tomato",
+    "Onion",
+    "Mayo",
+    "Deli Mustard"
+  ],
+  "category": "Sub",
+  "size_options": [
+    {
+      "size": "Small",
+      "price": 7.49
+    },
+    {
+      "size": "Medium",
+      "price": 10.99
+    },
+    {
+      "size": "Large",
+      "price": 13.99
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67cf84c113ce669f7853a878"
+  },
+  "name": "Sweet & Spicy Meatball",
+  "description": "Italian meatballs, melted provolone, zesty marinara, Captain Sorenson's Datil Pepper Sauce, and red pepper flakes.",
+  "price": 10.49,
+  "ingredients": [
+    "Italian Meatballs",
+    "Provolone Cheese",
+    "Marinara Sauce",
+    "Captain Sorenson's Datil Pepper Sauce",
+    "Red Pepper Flakes"
+  ],
+  "category": "Sub",
+  "size_options": [
+    {
+      "size": "Small",
+      "price": 6.79
+    },
+    {
+      "size": "Medium",
+      "price": 10.49
+    },
+    {
+      "size": "Large",
+      "price": 13.99
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67cf855213ce669f7853a87a"
+  },
+  "name": "Firehouse Steak & Cheese",
+  "description": "Sautéed steak, melted provolone, sautéed onions and bell peppers, mayo, and deli mustard.",
+  "price": 10.99,
+  "ingredients": [
+    "Steak",
+    "Provolone Cheese",
+    "Onions",
+    "Bell Peppers",
+    "Mayo",
+    "Deli Mustard"
+  ],
+  "category": "Sub",
+  "size_options": [
+    {
+      "size": "Small",
+      "price": 7.29
+    },
+    {
+      "size": "Medium",
+      "price": 10.99
+    },
+    {
+      "size": "Large",
+      "price": 13.99
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67cf85b713ce669f7853a87c"
+  },
+  "name": "Smokehouse Beef & Cheddar Brisket",
+  "description": "Beef brisket smoked for over 16 hours, melted cheddar, mayo, and Sweet Baby Ray's® BBQ Sauce.",
+  "price": 10.99,
+  "ingredients": [
+    "Smoked Beef Brisket",
+    "Cheddar Cheese",
+    "Mayo",
+    "Sweet Baby Ray's BBQ Sauce"
+  ],
+  "category": "Sub",
+  "size_options": [
+    {
+      "size": "Small",
+      "price": 7.29
+    },
+    {
+      "size": "Medium",
+      "price": 10.99
+    },
+    {
+      "size": "Large",
+      "price": 15.99
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67cf85e113ce669f7853a87e"
+  },
+  "name": "Spicy Cajun Chicken",
+  "description": "Grilled, Cajun-seasoned chicken breast, jalapeños, melted pepper jack cheese, lettuce, onions, deli mustard, and house-made Cajun mayo.",
+  "price": 9.99,
+  "ingredients": [
+    "Cajun-seasoned Chicken Breast",
+    "Pepper Jack Cheese",
+    "Lettuce",
+    "Onions",
+    "Jalapeños",
+    "Deli Mustard",
+    "Cajun Mayo"
+  ],
+  "category": "Sub",
+  "size_options": [
+    {
+      "size": "Small",
+      "price": 6.99
+    },
+    {
+      "size": "Medium",
+      "price": 9.99
+    },
+    {
+      "size": "Large",
+      "price": 13.99
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67cf864713ce669f7853a881"
+  },
+  "name": "Jamaican Jerk Turkey",
+  "description": "Smoked turkey breast, pepper jack cheese, sweet mustard sauce, lettuce, tomato, onion, and mayo.",
+  "price": 9.79,
+  "ingredients": [
+    "Smoked Turkey Breast",
+    "Pepper Jack Cheese",
+    "Sweet Mustard Sauce",
+    "Lettuce",
+    "Tomato",
+    "Onion",
+    "Mayo"
+  ],
+  "category": "Sub",
+  "size_options": [
+    {
+      "size": "Small",
+      "price": 6.29
+    },
+    {
+      "size": "Medium",
+      "price": 9.79
+    },
+    {
+      "size": "Large",
+      "price": 13.79
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67cf86c913ce669f7853a883"
+  },
+  "name": "Tuna Salad",
+  "description": "A blend of tuna, mayonnaise, relish, and black pepper—an old fire department recipe. Served Fully Involved® with provolone cheese.",
+  "price": 9.79,
+  "ingredients": [
+    "Tuna",
+    "Mayonnaise",
+    "Relish",
+    "Black Pepper",
+    "Provolone Cheese",
+    "Lettuce",
+    "Tomato",
+    "Onion",
+    "Deli Mustard",
+    "Kosher Dill Pickle"
+  ],
+  "category": "Sub",
+  "size_options": [
+    {
+      "size": "Small",
+      "price": 6.29
+    },
+    {
+      "size": "Medium",
+      "price": 9.79
+    },
+    {
+      "size": "Large",
+      "price": 13.79
+    }
+  ]
+}]

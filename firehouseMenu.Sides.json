@@ -1,0 +1,140 @@
+[{
+  "_id": {
+    "$oid": "67cfcb4d13ce669f7853a893"
+  },
+  "name": "Chips",
+  "flavors": [
+    "Lay’s Classic",
+    "Flamin' Hot Cheetos",
+    "Lay's Kettle Cooked Jalapeno and Cheddar",
+    "Lay's Oven Baked BBQ",
+    "Ruffles Cheddar and Sour Cream",
+    "Ruffles Oven Baked Cheddar and Sour Cream",
+    "Doritos Cool Ranch",
+    "Doritos Nacho Cheese",
+    "Regular Crunchy Cheetos",
+    "Fritos",
+    "Funyuns",
+    "Miss Vickie's Sea Salt",
+    "Miss Vickie’s Sea Salt & Vinegar",
+    "Miss Vickie’s Jalapeño",
+    "Miss Vickie's Spicy Dill Pickle",
+    "Miss Vickie's Smokehouse BBQ",
+    "SunChips Harvest Cheddar",
+    "Baked Lay’s"
+  ],
+  "size_options": [
+    {
+      "size": "One Size",
+      "price": 1.89
+    }
+  ],
+  "category": "Side"
+},
+{
+  "_id": {
+    "$oid": "67cfcb9a13ce669f7853a895"
+  },
+  "name": "Cookie",
+  "flavors": [
+    "Chocolate Chip",
+    "Oatmeal Raisin"
+  ],
+  "size_options": [
+    {
+      "size": "One Size",
+      "price": 1.25
+    }
+  ],
+  "category": "Side"
+},
+{
+  "_id": {
+    "$oid": "67cfcbbc13ce669f7853a897"
+  },
+  "name": "Brownie",
+  "size_options": [
+    {
+      "size": "One Size",
+      "price": 1.99
+    }
+  ],
+  "category": "Side"
+},
+{
+  "_id": {
+    "$oid": "67cfcca913ce669f7853a899"
+  },
+  "name": "Five Cheese Mac and Cheese",
+  "size_options": [
+    {
+      "size": "One Size",
+      "price": 4.49
+    }
+  ],
+  "category": "Side"
+},
+{
+  "_id": {
+    "$oid": "67cfccea13ce669f7853a89b"
+  },
+  "name": "Firehouse Chili",
+  "size_options": [
+    {
+      "size": "Small",
+      "price": 3.99
+    },
+    {
+      "size": "Large",
+      "price": 4.99
+    }
+  ],
+  "category": "Side"
+},
+{
+  "_id": {
+    "$oid": "67cfcd2513ce669f7853a89d"
+  },
+  "name": "Loaded Potato Soup",
+  "size_options": [
+    {
+      "size": "Small",
+      "price": 3.99
+    },
+    {
+      "size": "Large",
+      "price": 4.99
+    }
+  ],
+  "category": "Side"
+},
+{
+  "_id": {
+    "$oid": "67cfcf7f13ce669f7853a89f"
+  },
+  "name": "Side Salad",
+  "size_options": [
+    {
+      "size": "One Size",
+      "price": 4.49
+    }
+  ],
+  "category": "Side"
+},
+{
+  "_id": {
+    "$oid": "67cfd00513ce669f7853a8a1"
+  },
+  "name": "Garlic Bread",
+  "flavors": [
+    "White",
+    "Wheat"
+  ],
+  "size_options": [
+    {
+      "size": "One Size",
+      "price": 1.24
+    }
+  ],
+  "category": "Side"
+}]

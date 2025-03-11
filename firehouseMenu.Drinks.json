@@ -1,0 +1,80 @@
+[{
+  "_id": {
+    "$oid": "67cfc0f213ce669f7853a886"
+  },
+  "name": "Fountain Drink",
+  "size_options": [
+    {
+      "size": "Small",
+      "price": 2.79
+    },
+    {
+      "size": "Medium",
+      "price": 2.99
+    },
+    {
+      "size": "Large",
+      "price": 3.19
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67cfc14a13ce669f7853a888"
+  },
+  "name": "Bottled Water",
+  "size_options": [
+    {
+      "size": "One Size",
+      "price": 2.79
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67cfc18013ce669f7853a88a"
+  },
+  "name": "Bottle Coca-Cola",
+  "size_options": [
+    {
+      "size": "One Size",
+      "price": 2.79
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67cfc19913ce669f7853a88c"
+  },
+  "name": "Bottled Diet Coke",
+  "size_options": [
+    {
+      "size": "One Size",
+      "price": 2.79
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67cfc1b013ce669f7853a88e"
+  },
+  "name": "Bottled Coke Zero",
+  "size_options": [
+    {
+      "size": "One Size",
+      "price": 2.79
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67cfc1c213ce669f7853a890"
+  },
+  "name": "Bottled Sprite",
+  "size_options": [
+    {
+      "size": "One Size",
+      "price": 2.79
+    }
+  ]
+}]
