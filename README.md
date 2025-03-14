@@ -12,6 +12,11 @@ Go to the google gemini website to get a free API key and paste them in docbot.p
 npm install
 ```
 
+## Start the server
+```
+node server
+```
+
 ### Compiles and hot-reloads for development
 ```
 npm run serve
