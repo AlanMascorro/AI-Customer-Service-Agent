@@ -8,21 +8,28 @@ const cors = require("cors"); // Cross-Origin Resource Sharing
 const fs = require("fs"); // File System
 
 //--LangChain--//
-const langChain = require("langchain"); // NLP Library
+const { customerServiceAgent } = require("./agent");
 
 /***************************************
  * Initialize express server           *
 ****************************************/
 
-//--Main Initialization--
+//--Main Initialization--//
 const app = express();
 
-//--Middleware Activation--
+//--Middleware Activation--//
 app.use(express.json()); 
 app.use(cors());
 
+//--Page Request--//
 
+//--Query Request--//
 
+//Test Request
+customerServiceAgent.invoke([["human", "Hello world!"]])
+    .then(response => console.log(response))
+    .catch(error => console.error(error));
 
+//--Gemeni API Tracking--//
 
 app.listen(3000, () => console.log("Server running on port 3000"));
