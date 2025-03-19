@@ -6,9 +6,10 @@ const cors = require("cors"); // Cross-Origin Resource Sharing
 
 //--System--//
 const fs = require("fs"); // File System
+require("dotenv").config(); // Environment Variables
 
 //--LangChain--//
-const { customerServiceAgent } = require("./agent");
+const { customerServiceAgent } = require("./langchain/agent");
 
 /***************************************
  * Initialize express server           *
