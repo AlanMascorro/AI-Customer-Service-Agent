@@ -5,7 +5,8 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
-    "langchain": "^0.3.19"
+    "langchain": "^0.3.19",
+    "mongodb": "^6.15.0"
   },
   "resolutions": {
     "@langchain/core": "^0.3.0"

@@ -1,7 +1,7 @@
 //Import Langchain Tooling
 const { ChatGoogleGenerativeAI } = require('@langchain/google-genai');
 const { ChatPromptTemplate } = require('@langchain/core/prompts');
-const { StringOutputParser } = require('@langchain/core/output_parsers');
+const { StringOutputParser, StructuredOutputParser } = require('@langchain/core/output_parsers');
 
 /*************************************
  * Will search environment variables *
@@ -30,7 +30,7 @@ const queryParser = new StringOutputParser();
 const finalizeParser = 0;
 
 //--chain--//
-const customerServiceAgent = query.pipe(geminiModel);
+const customerServiceAgent = query.pipe(geminiModel);;
 
 
 /*****************************************
