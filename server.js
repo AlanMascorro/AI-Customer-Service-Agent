@@ -26,8 +26,23 @@ app.use(express.json());
 app.use(cors());
 
 //--MongoDB Request--//
+const uri = process.env.MONGO_URI; // most likely a uri, could be a url not sure how mongodb works (ask Jacob), either way store in .env
 
+const client = new MongoClient(uri);
+let db;
 
+async function connectToMongo()
+{
+  try {
+    await client.connect();
+    db = client.db("put database name here"); // Ask Jacob for database name
+    console.log("MongoDB connected!"); // test
+  } catch (err) {
+    console.error("MongoDB connection failed:", err);
+  }
+}
+
+connectToMongo();
 
 //--Page Request--//
 
