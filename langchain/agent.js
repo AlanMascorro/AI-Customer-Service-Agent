@@ -2,6 +2,14 @@
 const { ChatGoogleGenerativeAI } = require('@langchain/google-genai');
 const { ChatPromptTemplate } = require('@langchain/core/prompts');
 const { StringOutputParser, StructuredOutputParser } = require('@langchain/core/output_parsers');
+const { GoogleGenAI } = require('@google/genai');
+
+//const { createStuffDocumentsChain } = require('langchain/chains/combine_documents');
+
+
+//--Database Data Pull--//
+
+
 
 /*************************************
  * Will search environment variables *
@@ -16,10 +24,10 @@ const geminiModel = new ChatGoogleGenerativeAI({
 });
 
 //--context template--//
-const query = ChatPromptTemplate.fromMessages([
-    ["system", "{context}"],
-    ["human", "{input}"]
-]);
+const queryTemplate = ChatPromptTemplate.fromTemplate(
+    `system {context}
+    human {input}`
+);
 
 //--output parser--//
 /****************************************
@@ -29,15 +37,21 @@ const query = ChatPromptTemplate.fromMessages([
 const queryParser = new StringOutputParser();
 const finalizeParser = 0;
 
+
+
 //--chain--//
-const customerServiceAgent = query.pipe(geminiModel);;
-
-
 /*****************************************
  * The chain is returned with the output *
  * parsers, so that a different parser   *
  * can be used for ordering and          *
  * finalizing                            *
  *****************************************/
+const customerServiceAgent = queryTemplate.pipe(geminiModel);
 
-module.exports = { customerServiceAgent, queryParser, finalizeParser };
+
+module.exports.customerServiceAgent = customerServiceAgent;
+module.exports.queryParser = queryParser;
+module.exports.finalizeParser = finalizeParser;
+
+
+
