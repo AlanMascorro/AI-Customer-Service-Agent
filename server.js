@@ -35,7 +35,7 @@ async function connectToMongo()
 {
   try {
     await client.connect();
-    db = client.db("put database name here"); // Ask Jacob for database name
+    db = client.db("firehouseSubs"); // Ask Jacob for database name
     console.log("MongoDB connected!"); // test
   } catch (err) {
     console.error("MongoDB connection failed:", err);
