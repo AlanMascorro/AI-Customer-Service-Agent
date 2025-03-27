@@ -1,19 +1,25 @@
 //Includes
 
 //--Network--//
-const express = require("express"); // Express web server framework
-const cors = require("cors"); // Cross-Origin Resource Sharing
+import express from "express"; // Express web server framework
+import cors from "cors"; // Cross-Origin Resource Sharing
 
-const { MongoClient } = require("mongodb");
+import { MongoClient } from "mongodb";
 
 
 //--System--//
-const fs = require("fs"); // File System
-require("dotenv").config(); // Environment Variables
-const path = require("path"); // Path Manipulation for Portability
+import fs from "fs"; // File System
+import dotenv from "dotenv"; // Environment Variables
+dotenv.config();
+import path from "path"; // Path Manipulation for Portability
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 
 //--Customer Service Bot--//
-const { customerServiceAgent, queryParser } = require("./langchain/agent");
+import { customerServiceAgent, queryParser } from "./langchain/agent.js";
 
 /***************************************
  * Initialize express server           *

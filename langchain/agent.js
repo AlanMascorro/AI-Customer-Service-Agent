@@ -1,11 +1,13 @@
 //Import Langchain Tooling
-const { ChatGoogleGenerativeAI } = require('@langchain/google-genai');
-const { ChatPromptTemplate } = require('@langchain/core/prompts');
-const { StringOutputParser, StructuredOutputParser } = require('@langchain/core/output_parsers');
-const { GoogleGenAI } = require('@google/genai');
+import { ChatGoogleGenerativeAI } from '@langchain/google-genai';
+import { ChatPromptTemplate } from '@langchain/core/prompts';
+import { StringOutputParser, StructuredOutputParser } from '@langchain/core/output_parsers';
+import { GoogleGenAI } from '@google/genai';
+ 
+import { createStuffDocumentsChain } from 'langchain/chains/combine_documents';
 
-//const { createStuffDocumentsChain } = require('langchain/chains/combine_documents');
-
+import dotenv from "dotenv"; // Environment Variables
+dotenv.config();
 
 //--Database Data Pull--//
 
@@ -49,9 +51,7 @@ const finalizeParser = 0;
 const customerServiceAgent = queryTemplate.pipe(geminiModel);
 
 
-module.exports.customerServiceAgent = customerServiceAgent;
-module.exports.queryParser = queryParser;
-module.exports.finalizeParser = finalizeParser;
+export { customerServiceAgent, queryParser, finalizeParser };
 
 
 

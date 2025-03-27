@@ -14,5 +14,6 @@
   "resolutions": {
     "@langchain/core": "^0.3.0"
   },
-  "overrides": {}
+  "overrides": {},
+  "type": "module"
 }
