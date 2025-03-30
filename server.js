@@ -9,58 +9,63 @@ app.use(cors());
 
 
 
-function display(questions, flag){
-
-  if (flag == 1){
-app.get("/get-messages", (req, res) => {
-  fs.readFile(questions, "utf8", (err, data) => {
-    if (err) {
-      return res.status(500).json({ error: "Error reading messages." });
-    }
-
-    // Convert file contents to an array (each line is a JSON object)
-     let messages;
-        try {
-            messages = data.trim() ? JSON.parse(data) : [];
-        } catch (parseError) {
-            console.error("JSON parse error:", parseError);
-            return res.status(500).json({ error: "Invalid JSON format in messages.json" });
+function display(questions, flag) {
+  if (flag == 1) {
+    app.get("/get-messages", (req, res) => {
+      fs.readFile(questions, "utf8", (err, data) => {
+        if (err) {
+          return res.status(500).json({ error: "Error reading messages." });
         }
 
-    res.json(messages); // Send messages to Vue
-    console.log("there was nothing "+messages[0])
-
-  });
-
-});
-
-}else if (flag == 2){
-app.get("/get-res", (req, res) => {
-  setTimeout(async () => {
-  fs.readFile(questions, "utf8", (err, data) => {
-    if (err) {
-      return res.status(500).json({ error: "Error reading messages." });
-    }
-
-    // Convert file contents to an array (each line is a JSON object)
-     let messages;
+        // Convert file contents to an array (each line is a JSON object)
+        let messages;
         try {
-            messages = data.trim() ? JSON.parse(data) : [];
+          messages = data.trim() ? JSON.parse(data) : [];
         } catch (parseError) {
-            console.error("JSON parse error:", parseError);
-            return res.status(500).json({ error: "Invalid JSON format in messages.json" });
+          console.error("JSON parse error:", parseError);
+          return res.status(500).json({ error: "Invalid JSON format in messages.json" });
         }
 
-    res.json(messages); // Send messages to Vue
-    console.log("your problem: "+messages[0])
+        res.json(messages); // Send messages to Vue
+        console.log("there was nothing " + messages[0])
+
+      });
+
+    });
+
+  } else if (flag == 2) {
+    app.get("/get-res", (req, res) => {
+      setTimeout(async () => {
+        fs.readFile(questions, "utf8", (err, data) => {
+          if (err) {
+            return res.status(500).json({ error: "Error reading messages." });
+          }
+
+          // Convert file contents to an array (each line is a JSON object)
+          let messages;
+          try {
+            messages = data.trim() ? JSON.parse(data) : [];
+          } catch (parseError) {
+            console.error("JSON parse error:", parseError);
+            return res.status(500).json({ error: "Invalid JSON format in messages.json" });
+          }
+
+          res.json(messages); // Send messages to Vue
+          console.log("your problem: " + messages[0])
 
 
-  });
-   }, 2000); 
+        });
+      }, 2000);
 
-});
+    });
 
-}
+  }
+  else {
+    app.get("/api/messages", (req, res) => {
+      res.json({ message: "Hello from backend!" });
+    });
+  }
+
 }
 
 app.post("/save-message", (req, res) => {
@@ -74,8 +79,6 @@ app.post("/save-message", (req, res) => {
   }
 
   // Create JSON object
-
-
   const data = { message: userText };
 
   // Write to JSON file
@@ -83,48 +86,40 @@ app.post("/save-message", (req, res) => {
   cat = ""
   fl = 1
 
-  if (stype == "script"){
-
+  if (stype == "script") {
     scr = "docbot.py"
     cat = "buf.json"
     fl = 1
 
- }else{
-
-
-  fs.writeFile("buf.json", JSON.stringify(stype, null, 2), (err) => {
-        if (err) {
-            console.error("Error writing file:", err);
-            return res.status(500).send("Failed to save");
-        }
-        res.send("Array saved!");
+  } else {
+    fs.writeFile("buf.json", JSON.stringify(stype, null, 2), (err) => {
+      if (err) {
+        console.error("Error writing file:", err);
+        return res.status(500).send("Failed to save");
+      }
+      res.send("Array saved!");
     });
 
     scr = "doc_opinion.py"
     cat = "diagnosis.json"
     fl = 2
- }
-    
-    const { spawn } = require("child_process");
-    const pythonProcess = spawn("python", [scr, message]);
+  }
 
-    let output = "";
-    pythonProcess.stdout.on("data", (data) => {
-      output += data.toString();
-    });
+  const { spawn } = require("child_process");
+  const pythonProcess = spawn("python3", [scr, message]);
 
-    console.log("the "+output+" and "+scr);
+  let output = "";
+  pythonProcess.stdout.on("data", (data) => {
+    output += data.toString();
+  });
 
-    pythonProcess.on("close", () => {
-      res.send({ result: output.trim() });
-    });
+  console.log("the " + output + " and " + scr);
 
-    display(cat, fl)
+  pythonProcess.on("close", () => {
+    res.send({ result: output.trim() });
+  });
 
-    
-
-      
-
+  display(cat, fl)
 });
 
 

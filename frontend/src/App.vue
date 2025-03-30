@@ -1,9 +1,19 @@
 <template>
+  <!-- Navbar across all pages -->
+  <Navbar />
+
+  <!-- Content of current route is displayed here -->
   <router-view />
 </template>
 
 <script>
+import Navbar from "./components/NavBar.vue"; // import
+
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    Navbar // register
+  }
 };
 </script>
+

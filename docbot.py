@@ -20,8 +20,8 @@ with open("buf.json", "w", encoding="utf-8") as f:
         #ill = line.find("$") + 1
         start = line.find(";") + 1
         end = line.find("?", start)
-     #   if ill > 0:
-      #      sick_list.append(line[ill:])    
+    #   if ill > 0:
+    #      sick_list.append(line[ill:])    
         if start > 0:
             question_list.append(line[start:end])
             num_question += 1
@@ -29,6 +29,6 @@ with open("buf.json", "w", encoding="utf-8") as f:
 
 
 # Save `sick_list` to a JSON file
-#with open("ill.json", "w", encoding="utf-8") as f:
- #       json.dump(sick_list, f)
+# with open("ill.json", "w", encoding="utf-8") as f:
+# json.dump(sick_list, f)
 
