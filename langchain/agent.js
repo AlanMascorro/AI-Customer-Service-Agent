@@ -1,10 +1,15 @@
-//Import Langchain Tooling
+//--Import Langchain Tooling--//
 import { ChatGoogleGenerativeAI } from '@langchain/google-genai';
 import { ChatPromptTemplate } from '@langchain/core/prompts';
 import { StringOutputParser, StructuredOutputParser } from '@langchain/core/output_parsers';
-import { GoogleGenAI } from '@google/genai';
- 
+
+
 import { createStuffDocumentsChain } from 'langchain/chains/combine_documents';
+import { createRetrievalChain } from 'langchain/chains/retrieval';
+
+import { contextRetriever } from './embeddings.js';
+
+//--Import Google Gen AI--//
 
 import dotenv from "dotenv"; // Environment Variables
 dotenv.config();
@@ -22,13 +27,15 @@ const geminiModel = new ChatGoogleGenerativeAI({
     model: 'gemini-2.0-flash',
     apiKey: process.env.GEMENI_API_KEY,
     temperature: 0.7,
-    /*systemInstruction: "You are a customer serivce agent for Firehouse Subs"*/
 });
 
 //--context template--//
 const queryTemplate = ChatPromptTemplate.fromTemplate(
-    `system {context}
-    human {input}`
+    `
+    System Instructions {system}
+    Context: {context}
+    Human: {input}
+    `
 );
 
 //--output parser--//
@@ -48,7 +55,15 @@ const finalizeParser = 0;
  * can be used for ordering and          *
  * finalizing                            *
  *****************************************/
-const customerServiceAgent = queryTemplate.pipe(geminiModel);
+const logicChain = await createStuffDocumentsChain( {
+    llm: geminiModel,
+    prompt: queryTemplate,
+});
+
+const customerServiceAgent = await createRetrievalChain( {
+    combineDocsChain: logicChain,
+    retriever: contextRetriever
+})
 
 
 export { customerServiceAgent, queryParser, finalizeParser };

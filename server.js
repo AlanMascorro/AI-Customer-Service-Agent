@@ -15,11 +15,12 @@ import path from "path"; // Path Manipulation for Portability
 import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
+
 const __dirname = path.dirname(__filename);
 
 
 //--Customer Service Bot--//
-import { customerServiceAgent, queryParser } from "./langchain/agent.js";
+import { customerServiceAgent , queryParser } from "./langchain/agent.js";
 
 /***************************************
  * Initialize express server           *
@@ -43,10 +44,12 @@ app.use(express.static(path.join(__dirname, "frontend", "dist", "css")));
  * users requests and interct*
  * with the chatbot          *
  ****************************/
+let instructions = "Use context info & Human's request to track order and answer questions.";
+
 app.get("/api/query", async (req, res) => {
     const response = await customerServiceAgent.pipe(queryParser).invoke({
+        system: instructions,
         input: req.query.query,
-        context: ""
     })
     console.log(response);
 
