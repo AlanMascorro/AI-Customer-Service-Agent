@@ -12,10 +12,12 @@
         </div>
       </div>
       <!-- 2) input -->
-      <div class="flex pt-3 border-t border-gray-800 justify-center"> <!-- padding all around (p-#) -->
-          <input v-model="userInput" placeholder="Place an order or ask for other assistance" @keyup.enter="sendMessage" 
-          class="w-8/12 p-2 border border-gray-300 rounded-md mr-2 outline-none" />
-          <button @click="sendMessage" class="bg-black text-white px-5 py-2 rounded-2xl self-end">Send</button>
+      <div class="flex justify-center"> <!-- replace as form -->
+        <div class="flex flex-col w-8/12 p-2 rounded-md bg-gray-400">
+            <input v-model="userInput" placeholder="Place an order or ask for other assistance" @keyup.enter="sendMessage" 
+            class="p-2 rounded-md outline-none w-full placeholder-black bg-transparent" /> <!-- padding all around (p-#) -->
+            <button @click="sendMessage" class="bg-black text-white px-5 py-2 rounded-2xl self-end"><img src="../assets/arrow-up-svgrepo-com.svg" class="w-4 h-4 stroke-white"></button>
+        </div>
       </div>
     </div>
   </div>

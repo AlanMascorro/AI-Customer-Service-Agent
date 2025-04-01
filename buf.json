@@ -1,1 +1,9 @@
-["hello", "Would you like white bread or wheat bread", "Would you like a combo meal", "Would you like a pickle with your order"]
+[
+  "hello",
+  "Would you like white bread or wheat bread",
+  "wheat",
+  "Would you like a combo meal",
+  "no",
+  "Would you like a pickle with your order",
+  "yes"
+]
