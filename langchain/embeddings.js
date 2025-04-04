@@ -40,7 +40,7 @@ const vectorStoreCollection = firehouseDB.collection(process.env.MONGODB_COLLECT
 
 const vectorStore = new MongoDBAtlasVectorSearch(embedder, {
     collection: vectorStoreCollection,
-    indexName: "vector_index",
+    indexName: "vindex",
     textKey: "text",
     embeddingKey: "embedding"
 });
@@ -93,13 +93,11 @@ async function generateVectorStore(vectorStore) {
     console.log("Vector store generated");
 }
 
-
-let texts = ["I am awsome", "I am cool"];
-let embeddings = await embedder.embedDocuments(texts);
-
 //Setup retriever
 
-const contextRetriever = vectorStore.asRetriever();
+const contextRetriever = vectorStore.asRetriever({
+    k: 1
+});
 
 /*Change this in the future to an object which allows to update the vector store and stuff*/
 export { contextRetriever, generateVectorStore, vectorStore }

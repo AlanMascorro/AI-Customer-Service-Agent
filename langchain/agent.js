@@ -27,7 +27,7 @@ const geminiModel = new ChatGoogleGenerativeAI({
 //--context template--//
 const queryTemplate = ChatPromptTemplate.fromTemplate(
     `
-    System Instructions {system}
+    System: {system}
     Context: {context}
     Human: {input}
     `
@@ -53,6 +53,7 @@ const finalizeParser = 0;
 const logicChain = await createStuffDocumentsChain( {
     llm: geminiModel,
     prompt: queryTemplate,
+    outputParser: queryParser
 });
 
 const customerServiceAgent = await createRetrievalChain( {
@@ -61,7 +62,7 @@ const customerServiceAgent = await createRetrievalChain( {
 })
 
 
-export { logicChain, queryParser, finalizeParser };
+export { customerServiceAgent };
 
 
 

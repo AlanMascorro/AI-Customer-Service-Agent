@@ -19,7 +19,7 @@ const __dirname = path.dirname(__filename);
 
 
 //--Customer Service Bot--//
-import { logicChain as customerServiceAgent , queryParser } from "./langchain/agent.js";
+import { customerServiceAgent } from "./langchain/agent.js";
 
 /***************************************
  * Initialize express server           *
@@ -43,10 +43,10 @@ app.use(express.static(path.join(__dirname, "frontend", "dist", "css")));
  * users requests and interct*
  * with the chatbot          *
  ****************************/
-let instructions = "Use context info & Human's request to track order and answer questions.";
+let instructions = "Use context info & Human's request to track order and answer questions as a firehouse subs employee.";
 
 app.get("/api/query", async (req, res) => {
-    const response = await customerServiceAgent.pipe(queryParser).invoke({
+    const response = await customerServiceAgent.invoke({
         system: instructions,
         input: req.query.query,
     })
