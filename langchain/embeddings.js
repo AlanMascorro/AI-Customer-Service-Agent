@@ -9,15 +9,9 @@ import { GoogleGenerativeAIEmbeddings } from '@langchain/google-genai';
 import { MongoDBAtlasVectorSearch } from '@langchain/mongodb';
 
 import { JSONLoader } from 'langchain/document_loaders/fs/json';
-import dotenv from 'dotenv'; // Environment Variables
-dotenv.config();
+import fs from 'fs';
+import "../config.js";
 
-//Embed the documents
-
-const embedder = new GoogleGenerativeAIEmbeddings( {
-    apiKey: process.env.GEMENI_API_KEY,
-    model: 'gemini-2.0-flash'
-});
 
 //--Create MongoDB Client--//
 
@@ -25,27 +19,23 @@ const embedder = new GoogleGenerativeAIEmbeddings( {
  * Create a connection to Atlas MongoDB host
  */
 const dbClient = new MongoClient(process.env.MONGODB_URI);
-const vectorStoreCollection = dbClient
-    .db(process.env.MONGODB_DATABASE_NAME)
-    .collection(process.env.MONGODB_COLLECTION_NAME);
+await dbClient.connect();
+const firehouseDB = dbClient.db(process.env.MONGODB_DATABASE_NAME);
 
-//Grab json from mongodb
+//--Create Vector Store Object--//
 
-/*Use the clientDB*/
-
-//Load data into documents
-
-/*Use langchain JSONLoader*/
-
-//--Embed documents--//
+const embedder = new GoogleGenerativeAIEmbeddings( {
+    apiKey: process.env.GEMENI_API_KEY,
+    model: 'text-embedding-004'
+});
 
 /**
- * Access to the specific collection in the database
- * used for the vector store
+ * Connect to vector store collection
  */
+const vectorStoreCollection = firehouseDB.collection(process.env.MONGODB_COLLECTION_NAME);
 
 /**
- * Set vector to the database collection
+ * Create Langchain vectorstore MongoDB Atlas integration
  */
 
 const vectorStore = new MongoDBAtlasVectorSearch(embedder, {
@@ -55,13 +45,61 @@ const vectorStore = new MongoDBAtlasVectorSearch(embedder, {
     embeddingKey: "embedding"
 });
 
-//Store into mongodb the vector store
+/**
+ * Generates the vector store from MongoDB based on the other collections
+ * @param {GoogleGenerativeAIEmbeddings} vectorStore - Vector store object from this module
+ * @param {Collection} firehouseDB - The reference to the MongoDB vector store collection
+ */
+async function generateVectorStore(vectorStore) {
+
+    //--Load JSON Data from MongoDB Collections--//
+
+    /**
+     * Aggregate data variable from collections
+     */
+    let data = [];
+
+    /**
+     * Loading all the MongoDB documents
+     */
+    data.push(...data.concat(await firehouseDB.collection("Subs").find({}).toArray(),
+                await firehouseDB.collection("Combos").find({}).toArray(),
+                await firehouseDB.collection("Drinks").find({}).toArray(),
+                await firehouseDB.collection("Slides").find({}).toArray(),
+                await firehouseDB.collection("Sides").find({}).toArray()));
+
+    data.forEach((doc, index) => {
+        doc._id = "";
+        data[index] = JSON.stringify(doc);
+    });
+
+    data = { texts: data };
+
+    fs.writeFileSync('data.json', JSON.stringify(data, null, 2), (err) => {
+        if (err) {
+            console.error('Error stroing data.json: ', err);
+        }
+    })
+
+    //--Convert JSON to Langchain Documents--//
+
+    /*Use langchain JSONLoader*/
+
+    const loader = new JSONLoader("./data.json");
+    const data_docs = await loader.load();
+
+    //--Store Embeddings in MongoDB--//
+    vectorStore.addDocuments(data_docs);
+    console.log("Vector store generated");
+}
 
 
+let texts = ["I am awsome", "I am cool"];
+let embeddings = await embedder.embedDocuments(texts);
 
 //Setup retriever
 
 const contextRetriever = vectorStore.asRetriever();
 
 /*Change this in the future to an object which allows to update the vector store and stuff*/
-export { contextRetriever }
+export { contextRetriever, generateVectorStore, vectorStore }

@@ -4,13 +4,12 @@
 import express from "express"; // Express web server framework
 import cors from "cors"; // Cross-Origin Resource Sharing
 
-import { MongoClient } from "mongodb";
+//import { MongoClient } from "mongodb";
 
 
 //--System--//
 import fs from "fs"; // File System
-import dotenv from "dotenv"; // Environment Variables
-dotenv.config();
+import "./config.js"; // Environment Variables
 import path from "path"; // Path Manipulation for Portability
 import { fileURLToPath } from "url";
 
@@ -20,7 +19,7 @@ const __dirname = path.dirname(__filename);
 
 
 //--Customer Service Bot--//
-import { customerServiceAgent , queryParser } from "./langchain/agent.js";
+import { logicChain as customerServiceAgent , queryParser } from "./langchain/agent.js";
 
 /***************************************
  * Initialize express server           *

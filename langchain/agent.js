@@ -9,12 +9,7 @@ import { createRetrievalChain } from 'langchain/chains/retrieval';
 
 import { contextRetriever } from './embeddings.js';
 
-//--Import Google Gen AI--//
-
-import dotenv from "dotenv"; // Environment Variables
-dotenv.config();
-
-//--Database Data Pull--//
+import "../config.js";
 
 
 
@@ -66,7 +61,7 @@ const customerServiceAgent = await createRetrievalChain( {
 })
 
 
-export { customerServiceAgent, queryParser, finalizeParser };
+export { logicChain, queryParser, finalizeParser };
 
 
 
