@@ -1,23 +1,26 @@
 <template>
+  <!-- centers chatbox container (the container contains conversation + input)-->
   <div class="flex justify-center">
     <!-- mt-# is distance from top of screen, not navbar (since navbar is fixed, not sticky) -->
+     <!-- chatbox container -->
     <div class="bg-gray-300 mt-24 p-4 rounded flex flex-col justify-between" style="width: 80vw; height: 80vh;">
-       <!-- 1) conversation/messages -->
-      <div class="flex flex-col">
-        <div v-for="(message, index) in messages" :key="index" :class="[
-          'p-3 mb-2 rounded-2xl max-w-2xl break-words',
-          message.sender === 'bot' ? 'bg-red-500 text-white self-start' : 'bg-black text-white self-end',
-          ]">
-            {{ message.text }}
+        <!-- 1) messages (overflow-y-scroll to prevent messages from pushing down input) -->
+        <div ref="chatContainer" class="flex flex-col overflow-auto">
+          <div v-for="(message, index) in messages" :key="index" :class="[
+            'p-3 mb-2 rounded-2xl max-w-2xl break-words',
+            message.sender === 'bot' ? 'bg-red-500 text-white self-start' : 'bg-black text-white self-end',
+            ]">
+              {{ message.text }}
+          </div>
         </div>
-      </div>
       <!-- 2) input -->
-      <div class="flex justify-center"> <!-- replace as form -->
-        <div class="flex flex-col w-8/12 p-2 rounded-md bg-gray-400">
+      <div class="flex justify-center border-gray-500 border-t-2"> <!-- replace as form, centers input-->
+        <!-- mt is margin from top border of input -->
+        <form class="flex flex-col w-8/12 p-2 rounded-md bg-gray-400 mt-3" method="GET">
             <input v-model="userInput" placeholder="Place an order or ask for other assistance" @keyup.enter="sendMessage" 
             class="p-2 rounded-md outline-none w-full placeholder-black bg-transparent" /> <!-- padding all around (p-#) -->
             <button @click="sendMessage" class="bg-black text-white px-5 py-2 rounded-2xl self-end"><img src="../assets/arrow-up-svgrepo-com.svg" class="w-4 h-4 stroke-white"></button>
-        </div>
+        </form>
       </div>
     </div>
   </div>
@@ -27,12 +30,34 @@
 
 
 <script>
+// for <template>
+  import { ref, watch, nextTick } from "vue";
+
+
+
 import axios from 'axios';
 import { useAuth0 } from '@auth0/auth0-vue';
 import { toRaw } from 'vue';
 
 export default {
   setup() {
+    const messages = ref(["Hello!", "How can I help you?"]);
+    const chatContainer = ref(null);
+
+    const checkOverflow = () => {
+      if (chatContainer.value) {
+        if (chatContainer.value.scrollHeight > chatContainer.value.clientHeight) {
+          console.log("overflow");
+        }
+      }
+    };
+
+    watch(messages, async () => {
+      await nextTick(); // Wait for DOM update
+      checkOverflow();
+    });
+
+
     const auth0 = useAuth0();
     return {
       logout() {
@@ -41,8 +66,12 @@ export default {
             returnTo: window.location.origin
           }
         });
-      }
+      },
+      // messages, // additions
+      chatContainer // additions
     };
+
+    
   },
   data() {
     return {
@@ -122,7 +151,7 @@ export default {
     },
 
     async sendMessage() {
-      console.log("msg!")
+      /*console.log("msg!")
 
       if (!this.userInput.trim()) return;
 
@@ -138,7 +167,9 @@ export default {
         console.log(this.diagnostics + "yes its true ");
       } else if (this.flag == "") {
         await axios.post("http://localhost:3000/save-message", { message: this.userInput, type: "script" });
-      }
+      }*/
+
+
       // Save message to local file via backend API
 
       // Simulate bot response

@@ -30,7 +30,7 @@
 <style>
     .navbar {
         background-color: #ffff;
-        border-bottom: 1px solid grey;
+        border-bottom: 0.5px solid grey;
         display: flex;
         justify-content: space-between; /* so that ul are at left and right ends */
         position: fixed;
