@@ -111,4 +111,4 @@ app.get("/api/query", async (req, res) => {
 
 //--Gemeni API Tracking--//
 
-app.listen(parseInt(process.env.HOST_PORT),process.env.HOST_IP, () => console.log(`Server running localhost on port 3000`));
+app.listen(parseInt(process.env.PORT), () => console.log(`Server running on port ${PORT}`));
