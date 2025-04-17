@@ -33,6 +33,7 @@
   import axios from 'axios';
   import { useAuth0 } from '@auth0/auth0-vue';
 
+  console.log("This is running the branch sprint2")
   
   export default {
     setup() {
