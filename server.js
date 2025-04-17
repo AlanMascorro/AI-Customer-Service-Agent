@@ -6,6 +6,7 @@ import cors from "cors"; // Cross-Origin Resource Sharing
 
 //import { MongoClient } from "mongodb";
 
+console.log("This is running the sprint2 branch")
 
 //--System--//
 import fs from "fs"; // File System
@@ -99,7 +100,7 @@ app.get("/api/query", async (req, res) => {
         chat_history.push("AI: " + responseText);
 
         console.log(chat_history);
-        res.json({ reply: responseText });
+        res.json({ reply: responseText, order: currentOrder });
     } catch (error) {
         console.error("Error processing message:", error);
         res.status(500).json({ error: "Something went wrong" });

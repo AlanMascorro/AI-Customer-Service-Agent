@@ -84,6 +84,7 @@
 
 
         this.messages.push({ text: response.data.reply, sender: "bot" });
+        console.log(response.data.order);
         // Save message to local file via backend API
   
         // Simulate bot response
