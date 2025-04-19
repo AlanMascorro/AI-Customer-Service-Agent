@@ -32,7 +32,7 @@ const embedder = new GoogleGenerativeAIEmbeddings( {
 /**
  * Connect to vector store collection
  */
-const vectorStoreCollection = firehouseDB.collection(process.env.MONGODB_COLLECTION_NAME);
+const vectorStoreCollection = firehouseDB.collection(process.env.VECTOR_COLLECTION_NAME);
 
 /**
  * Create Langchain vectorstore MongoDB Atlas integration

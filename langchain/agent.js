@@ -8,8 +8,6 @@ import { createStuffDocumentsChain } from 'langchain/chains/combine_documents';
 import { createRetrievalChain } from 'langchain/chains/retrieval';
 
 import { contextRetriever } from './embeddings.js';
-/*Add chat history into the Agent script in the future*/
-import { MessagesPlaceholder } from '@langchain/core/prompts'
 
 import "../config.js";
 
@@ -41,7 +39,6 @@ const queryTemplate = ChatPromptTemplate.fromTemplate(
  * characters. 
  ****************************************/
 const queryParser = new StringOutputParser();
-const finalizeParser = 0;
 
 
 
