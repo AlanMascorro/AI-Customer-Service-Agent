@@ -38,7 +38,7 @@ const app = express();
 //--Middleware Activation--//
 app.use(express.json()); 
 app.use(cors());
-app.use(express.static(path.join(__dirname, "frontend", "dist")));
+// app.use(express.static(path.join(__dirname, "frontend", "dist")));
 
 //--MongoDB Request--//
 
@@ -69,9 +69,9 @@ let currentOrder;
 let orderID = 0;
 let historyReach = 3;
 
-app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
-})
+// app.get("/", (req, res) => {
+    // res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
+// })
 
 app.get("/api/query", async (req, res) => {
     try {
@@ -132,4 +132,8 @@ app.get("/api/query", async (req, res) => {
 
 //--Gemeni API Tracking--//
 
-app.listen(parseInt(process.env.HOST_PORT),process.env.HOST_IP, () => console.log(`Server running localhost on port 3000`));
+// app.listen(parseInt(process.env.HOST_PORT),process.env.HOST_IP, () => console.log(`Server running localhost on port 3000`));
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log('Server is running on port ${PORT}');
+});
