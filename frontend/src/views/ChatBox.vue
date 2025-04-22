@@ -75,7 +75,7 @@
 
         // const url = /* "https://" +*/ process.env.VUE_APP_HOST_IP /* + ":" + process.env.VUE_APP_HOST_PORT */ + "/api/query";
         // const url = process.env.VUE_APP_HOST_IP + "/api/query";
-        const url = `${process.env.VUE_APP_API_URL}/api/query`;
+        const url = '${process.env.VUE_APP_API_URL}/api/query';
 
         const response = await axios.get(url, { 
           params: {
