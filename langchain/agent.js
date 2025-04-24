@@ -21,7 +21,7 @@ import "../config.js";
 const geminiModel = new ChatGoogleGenerativeAI({
     model: 'gemini-2.0-flash',
     apiKey: process.env.GEMENI_API_KEY,
-    temperature: 0.1,
+    temperature: 0.7,
 });
 
 //--context template--//

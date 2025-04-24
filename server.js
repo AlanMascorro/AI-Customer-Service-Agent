@@ -52,11 +52,13 @@ app.use(express.static(path.join(__dirname, "frontend", "dist")));
 let instructions = `Use context info, chat_history, current order, & Human's request to track order and answer questions as a firehouse subs employee, briefly provide information & don't repeat information in "Chat History:".
                     Generate a json file at the end with the users current order in the following schema: 
                     {"order": [{"item: "item name","size": "item size (if applicable)","price": "price on single item","quantity": "item quantity","instructions": "any special instructions"}]}
-                    If the user indicates they have completed their order, return "DONE"
+                    If the user hints that their order is complete, return "DONE"
                     If the user wants to clear/restart their order, return "CLEAR"
+                    If the user wants to view the menu, return "MENU"
                     DO NOT GO OFF TOPIC.
-                    NO NEED TO CONFIRM
-                    ONLY USE CONTEXT INFORMATION`;
+                    ONLY USE ITEMS THAT ARE GIVEN IN CONTEXT FOR ORDERS
+                    CLARIFY SIZE IF APPLICIABLE
+                    NO NEED TO CONFIRM`;
 const chat_history = [];
 let currentOrder;
 
@@ -77,12 +79,12 @@ app.get("/api/query", async (req, res) => {
     try {
         const userText = req.query.userInput;
         chat_history.push("User: " + userText);
-        let inputPrompt = "] User: " + userText;
+        let inputPrompt = "User Current Prompt: " + userText + "\nChat History: [";
         for(let i = 0; i < historyReach; i++) {
-            inputPrompt = `${chat_history[i]}\n` + inputPrompt;
+            inputPrompt += `${chat_history[i]}\n` ;
         }
-
-        inputPrompt = "Chat History: [" + inputPrompt;
+        
+        inputPrompt += "]";
 
         /*LIMIT THE INPUT PROMPT HERE*/
 
@@ -97,13 +99,100 @@ app.get("/api/query", async (req, res) => {
         if(responseText.indexOf("DONE") != -1) {
             try {
                 currentOrder.orderID = orderID;
-                await orderCollection.insertOne(currentOrder)
+                await orderCollection.insertOne(currentOrder);
                 orderID++;
+                responseText = "Thank you, your order will be ready shortly";
+                res.json({ reply: responseText, order: currentOrder });
+                return;
             } catch(e) {
                 console.log(e);
             }
         } else if(responseText.indexOf("CLEAR") != -1) {
             currentOrder={}
+            res.json({reply: "Your order is cleared."})
+            return;
+        } else if(responseText.indexOf("MENU") != -1) {
+            res.json({reply: `===============================\n
+                                FIREHOUSE SUBS MENU\n
+                            ===============================\n
+
+                            *********** SUBS ***********\n
+\n
+                            🔥 Hook & Ladder\n
+                                - Small  | $5.99 | 500 cal\n
+                                - Medium | $7.99 | 800 cal\n
+                                - Large  | $9.99 | 1100 cal\n
+\n
+                            🔥 Firehouse Meatball\n
+                                - Small  | $5.99 | 520 cal\n
+                                - Medium | $7.99 | 820 cal\n
+                                - Large  | $9.99 | 1120 cal\n
+\n
+                            🔥 Club on a Sub\n
+                                - Small  | $6.49 | 510 cal\n
+                                - Medium | $8.49 | 810 cal\n
+                                - Large  | $10.49| 1110 cal\n
+\n
+                            🔥 Engineer\n
+                                - Small  | $6.29 | 505 cal\n
+                                - Medium | $8.29 | 805 cal\n
+                                - Large  | $10.29| 1105 cal\n
+\n
+                            🔥 Italian\n
+                                - Small  | $6.29 | 515 cal\n
+                                - Medium | $8.29 | 815 cal\n
+                                - Large  | $10.29| 1115 cal\n
+\n
+                            🔥 Turkey Bacon Ranch\n
+                                - Small  | $6.79 | 525 cal\n
+                                - Medium | $8.79 | 825 cal\n
+                                - Large  | $10.79| 1125 cal\n
+\n
+                            🔥 Smokehouse Beef & Cheddar Brisket\n
+                                - Small  | $7.29 | 540 cal\n
+                                - Medium | $9.29 | 840 cal\n
+                                - Large  | $11.29| 1140 cal\n
+\n
+                            🔥 Veggie\n
+                                - Small  | $5.49 | 480 cal\n
+                                - Medium | $7.49 | 780 cal\n
+                                - Large  | $9.49 | 1080 cal\n
+\n
+\n
+                            *********** SIDES ***********\n
+\n
+                            🥗 Side Salad ............... $4.49 | 60 cal\n
+                            🥣 Loaded Potato Soup\n
+                                - Small ................ $3.99 | 240 cal\n
+                                - Large ................ $4.99 | 380 cal\n
+                            🥣 Firehouse Chili\n
+                                - Small ................ $3.99 | 180 cal\n
+                                - Large ................ $4.99 | 300 cal\n
+                            🧀 Five Cheese Mac & Cheese  $4.49 | 380 cal\n
+                            🍫 Brownie ................. $1.99 | 430 cal\n
+                            🍪 Cookie (Choc Chip / Oat)  $1.25 | 310 cal\n
+\n
+                            🥔 Chips:\n
+                                - Lay’s Classic ........ $1.89 | 150 cal\n
+                                - Flamin’ Hot Cheetos .. $1.89 | 150 cal\n
+                                - Jalapeño Cheddar ..... $1.89 | 150 cal\n
+                                - Oven Baked BBQ ....... $1.89 | 150 cal\n
+                                - Ruffles Cheddar SC ... $1.89 | 150 cal\n
+\n
+\n
+                            ********** DRINKS **********\n
+\n
+                            🥤 Fountain Drink\n
+                                - Small  | $1.99 | 100 cal\n
+                                - Medium | $2.29 | 150 cal\n
+                                - Large  | $2.59 | 200 cal\n
+\n
+                            🥤 Bottled Drink\n
+                                - One Size | $2.49 | 160 cal\n
+\n
+                            🥤 Kids Drink\n
+                                - One Size | $1.49 | 80 cal`, order: currentOrder});
+                            return;
         }
 
         let sOrderIndx = responseText.indexOf("{");
@@ -123,6 +212,9 @@ app.get("/api/query", async (req, res) => {
         chat_history.push("AI: " + responseText);
 
         console.log(chat_history);
+        if(responseText.trim().length == 0) {
+            responseText = "Got it, anything else?";
+        }
         res.json({ reply: responseText, order: currentOrder });
     } catch (error) {
         console.error("Error processing message:", error);

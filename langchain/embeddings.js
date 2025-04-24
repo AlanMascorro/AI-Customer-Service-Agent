@@ -50,7 +50,7 @@ const vectorStore = new MongoDBAtlasVectorSearch(embedder, {
  * @param {GoogleGenerativeAIEmbeddings} vectorStore - Vector store object from this module
  * @param {Collection} firehouseDB - The reference to the MongoDB vector store collection
  */
-async function generateVectorStore(vectorStore) {
+async function generateVectorStore(vectorStore, db) {
 
     //--Load JSON Data from MongoDB Collections--//
 
@@ -63,10 +63,10 @@ async function generateVectorStore(vectorStore) {
      * Loading all the MongoDB documents
      */
     data.push(...data.concat(await firehouseDB.collection("Subs").find({}).toArray(),
-                await firehouseDB.collection("Combos").find({}).toArray(),
                 await firehouseDB.collection("Drinks").find({}).toArray(),
                 await firehouseDB.collection("Slides").find({}).toArray(),
-                await firehouseDB.collection("Sides").find({}).toArray()));
+                await firehouseDB.collection("Sides").find({}).toArray(),
+                await firehouseDB.collection("Menus").find({}).toArray()));
 
     data.forEach((doc, index) => {
         doc._id = "";
@@ -96,7 +96,7 @@ async function generateVectorStore(vectorStore) {
 //Setup retriever
 
 const contextRetriever = vectorStore.asRetriever({
-    k: 1
+    k: 7
 });
 
 /*Change this in the future to an object which allows to update the vector store and stuff*/
