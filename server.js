@@ -74,9 +74,11 @@ let currentOrder;
 let orderID = 0;
 let historyReach = 3;
 
-// app.get("/", (req, res) => {
-//     res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
-// })
+app.get("/", (req, res) => {
+    chat_history = [];
+    currentOrder = {order: []};
+    //res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
+})
 
 app.get("/api/query", async (req, res) => {
     try {
