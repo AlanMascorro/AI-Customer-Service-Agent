@@ -96,7 +96,12 @@ async function generateVectorStore(vectorStore, db) {
 //Setup retriever
 
 const contextRetriever = vectorStore.asRetriever({
-    k: 7
+    searchType: "mmr",
+    k: 7,
+    searchKwargs: {
+        fetchK: 20,
+        lambda: 0.8
+    }
 });
 
 /*Change this in the future to an object which allows to update the vector store and stuff*/

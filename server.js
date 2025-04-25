@@ -73,7 +73,7 @@ let currentOrder = {};
  * customer service agent    *
  ****************************/
 let orderID = 0;
-let historyReach = 3;
+let historyReach = 4;
 
 // app.get("/", (req, res) => {
 //     res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
@@ -96,7 +96,7 @@ app.get("/api/query/:id", async (req, res) => {
         chat_history[id].push("User: " + userText);
         let inputPrompt = "User Current Prompt: " + userText + "\nChat History: [";
         for(let i = 0; i < historyReach; i++) {
-            if(chat_history[i] == undefined) {
+            if(chat_history[id][i] == undefined) {
                 break;
             }
             inputPrompt += `${chat_history[id][i]}\n` ;
