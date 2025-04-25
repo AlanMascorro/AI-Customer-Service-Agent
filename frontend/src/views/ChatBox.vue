@@ -22,10 +22,12 @@
           @mouseenter="hoverIn" 
           @mouseleave="hoverOut" 
           :class="[
-    'bg-white text-black rounded-md p-2 text-xs'
+    'bg-white text-black rounded-md p-2 text-xs',
+    isExpanded ? 'overflow-auto max-h-96' : 'w-20 h-16 overflow-hidden'
   ]">
               <!-- this re-renders everytime we send a message, so we have to overwrite order array -->
               <template v-if="isExpanded">
+                <div class="overflow-auto max-h-[15vh] pr-2 hover:overflow-scroll">
             <div v-for="(item, index) in order" :key="index" >
               <div><strong>Qty: {{ item.quantity }}</strong> - <strong>{{ item.item }}</strong> -- <strong>${{ item.price }}</strong></div>
               <!-- list inside makes sure bullet point is close to the text -->
@@ -35,6 +37,7 @@
               </ul>
               <!-- <ul class="list-disc ml-4">
               </ul> -->
+            </div>
             </div>
             </template>
             <div>
@@ -107,10 +110,9 @@
       
         this.messages.push({ text: this.userInput, sender: "user" });
 
-        // const url = /* "https://" +*/ process.env.VUE_APP_HOST_IP /* + ":" + process.env.VUE_APP_HOST_PORT */ + "/api/query";
-        // const url = process.env.VUE_APP_HOST_IP + "/api/query";
-        const url = `${process.env.VUE_APP_API_URL}/api/query`;
-
+        let url = "http://" + process.env.VUE_APP_HOST_IP + ":" + process.env.VUE_APP_HOST_PORT + "/api/query";
+                
+        url = "/api/query";
         const response = await axios.get(url, { 
           params: {
             userInput: this.userInput
@@ -142,7 +144,11 @@
 
                 for (let i = 0; i < response.data.order[key].length; i++) {
                   // calculate total price based on quantity
-                  const totalPrice = parseFloat(orderItem[i].price) * parseInt(orderItem[i].quantity);
+                  let price = orderItem[i].price;
+                  let quantity = orderItem[i].quantity;
+                  if(price != NaN && quantity != NaN) {
+                    const totalPrice = parseFloat(orderItem[i].price) * parseInt(orderItem[i].quantity);  
+                  }
 
                   // push new items into the cleared order array
                   this.order.push({
@@ -202,6 +208,23 @@
        
        if(!centered){
         gsap.to(widget, { scale: 1.9, duration: 0.3, ease: "power2.out" });
+       }else{
+
+          widget.style.overflowY = "auto";
+    
+    // You might need to adjust the max height to ensure there's content to scroll
+    
+    // Ensure the content area knows it should be scrollable
+    widget.style.msOverflowStyle = "none";  // IE and Edge
+    widget.style.scrollbarWidth = "none";
+    const contentArea = widget.querySelector(".overflow-auto");
+    if (contentArea) {
+      contentArea.style.overflowY = "auto";
+      contentArea.style.maxHeight = "15vh";  // Slightly smaller than parent to ensure room for the total\
+      contentArea.style.msOverflowStyle = "none";  // IE and Edge
+      contentArea.style.scrollbarWidth = "none";   // Firefox
+    }
+
        }
       },
       hoverOut() {
@@ -226,11 +249,16 @@
         tween.set(widget, { position: "fixed"}); 
         this.isExpanded = true;
         tween.fromTo(widget, {left: fromLeft, top: fromTop, scale: 1},{
-            scale: 5,
+            scale: 3,
             duration: 1,
             left: centerX,
-            top: centerY,
+            top: centerY/1.4,
+            overflow: "auto",
+            maxHeight: "15vh",
             ease: "power2.out",
+            onComplete: () => {
+              widget.style.overflowY = "auto";
+            },
             onReverseComplete: () => {
              console.log("Reverse complete!");
               centered = false;
@@ -267,4 +295,10 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+
+button[ref="sendButton"]:hover.isExpanded {
+  overflow-y: auto !important;
+}
+
   </style>

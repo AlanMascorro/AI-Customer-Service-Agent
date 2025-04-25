@@ -41,7 +41,7 @@ app.use(cors({
   origin: 'https://ai-customer-service-agent-1.onrender.com',
   credentials: true
 }));
-// app.use(express.static(path.join(__dirname, "frontend", "dist")));
+app.use(express.static(path.join(__dirname, "frontend", "dist")));
 
 //--MongoDB Request--//
 
@@ -74,9 +74,9 @@ let currentOrder;
 let orderID = 0;
 let historyReach = 3;
 
-// app.get("/", (req, res) => {
-    // res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
-// })
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
+})
 
 app.get("/api/query", async (req, res) => {
     try {
@@ -104,15 +104,19 @@ app.get("/api/query", async (req, res) => {
                 currentOrder.orderID = orderID;
                 await orderCollection.insertOne(currentOrder);
                 orderID++;
-                responseText = "Thank you, your order will be ready shortly";
+                let total = 0.0;
+                currentOrder.order.forEach((item) => {
+                    total += parseFloat(item.price);
+                });
+                responseText = `Thank you, your order will be ready shortly, your total is ${total}`;
                 res.json({ reply: responseText, order: currentOrder });
                 return;
             } catch(e) {
                 console.log(e);
             }
         } else if(responseText.indexOf("CLEAR") != -1) {
-            currentOrder={}
-            res.json({reply: "Your order is cleared."})
+            currentOrder={order: []}
+            res.json({reply: "Your order is cleared.", order: currentOrder})
             return;
         } else if(responseText.indexOf("MENU") != -1) {
             res.json({reply: `===============================\n
@@ -230,5 +234,5 @@ app.get("/api/query", async (req, res) => {
 // app.listen(parseInt(process.env.HOST_PORT),process.env.HOST_IP, () => console.log(`Server running localhost on port 3000`));
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log('Server is running on port ${PORT}');
+  console.log(`Server is running on port ${PORT}`);
 });
