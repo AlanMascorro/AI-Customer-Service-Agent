@@ -68,7 +68,7 @@
  // var oldy;
   var tween;
 
-  let urlClient = "https://" + process.env.VUE_APP_HOST_IP + ":" + process.env.VUE_APP_HOST_PORT + "/api/client";
+  let urlClient = "https://" + process.env.VUE_APP_HOST_IP + "/api/client";
   //urlClient = "api/client";
   const serverClient = await axios.get(urlClient);
   console.log(serverClient.data.clientID);
@@ -117,7 +117,7 @@
       
         this.messages.push({ text: this.userInput, sender: "user" });
 
-        let url = "https://" + process.env.VUE_APP_HOST_IP + ":" + process.env.VUE_APP_HOST_PORT + `/api/query/${clientID}`;
+        let url = "https://" + process.env.VUE_APP_HOST_IP + `/api/query/${clientID}`;
         //url = `api/query/${clientID}`;
         const response = await axios.get(url, { 
           params: {
