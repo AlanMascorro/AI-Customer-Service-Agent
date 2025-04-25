@@ -118,11 +118,8 @@ app.get("/api/query/:id", async (req, res) => {
             try {
                 currentOrder[id].orderID = id;
                 await orderCollection.insertOne(currentOrder[id]);
-                let total = 0.0;
-                currentOrder[id].order.forEach((item) => {
-                    total += parseFloat(item.price).toPrecision(2);
-                });
-                responseText = `Thank you, your order will be ready shortly, your total is ${total}`;
+                //let total = 0.0;
+                responseText = `Thank you, your order will be ready shortly`;
                 res.json({ reply: responseText, order: currentOrder[id] });
                 return;
             } catch(e) {
