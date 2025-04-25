@@ -60,7 +60,7 @@ let instructions = `Use context info, chat_history, current order, & Human's req
                     If the user wants to clear/restart their order, return "CLEAR"
                     If the user wants to view the menu, return "MENU"
                     DO NOT GO OFF TOPIC.
-                    ONLY USE ITEMS THAT ARE GIVEN IN CONTEXT FOR ORDERS
+                    ONLY USE ITEMS THAT ARE GIVEN IN BOTH CONTEXT & INPUT FOR ORDERS
                     CLARIFY SIZE IF APPLICIABLE
                     NO NEED TO CONFIRM`;
 let chat_history = {};
@@ -120,7 +120,7 @@ app.get("/api/query/:id", async (req, res) => {
                 await orderCollection.insertOne(currentOrder[id]);
                 let total = 0.0;
                 currentOrder[id].order.forEach((item) => {
-                    total += parseFloat(item.price);
+                    total += parseFloat(item.price).toPrecision(2);
                 });
                 responseText = `Thank you, your order will be ready shortly, your total is ${total}`;
                 res.json({ reply: responseText, order: currentOrder[id] });
