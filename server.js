@@ -41,7 +41,7 @@ app.use(cors({
   origin: 'https://ai-customer-service-agent-1.onrender.com',
   credentials: true
 }));
-app.use(express.static(path.join(__dirname, "frontend", "dist")));
+//app.use(express.static(path.join(__dirname, "frontend", "dist")));
 
 //--MongoDB Request--//
 
@@ -74,9 +74,9 @@ let currentOrder;
 let orderID = 0;
 let historyReach = 3;
 
-app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
-})
+// app.get("/", (req, res) => {
+//     res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
+// })
 
 app.get("/api/query", async (req, res) => {
     try {
