@@ -39,7 +39,7 @@ const app = express();
 //--Middleware Activation--//
 app.use(express.json()); 
 app.use(cors({
-  origin: 'https://ai-customer-service-agent-1.onrender.com',
+  origin: 'https://ai-customer-service-agent.onrender.com',
   credentials: true
 }));
 //app.use(express.static(path.join(__dirname, "frontend", "dist")));
