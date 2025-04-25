@@ -79,10 +79,7 @@ let historyReach = 4;
 //     res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
 // })
 
-app.get("/api/client", cors({
-    origin: "https://ai-customer-service-agent.onrender.com",
-    credentials: true
-}) ,async (req, res) => {
+app.get("/api/client", async (req, res) => {
     let id = uuid();
     res.json({clientID: id});
     chat_history[id] = [];
