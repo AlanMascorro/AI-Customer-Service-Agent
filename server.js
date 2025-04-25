@@ -90,6 +90,9 @@ app.get("/api/query/:id", async (req, res) => {
     try {
         const userText = req.query.userInput;
         const id = req.params.id;
+        if(id == undefined) {
+            res.send({reply: "id not defined for current session (rebuild dist/)"});
+        }
         chat_history[id].push("User: " + userText);
         let inputPrompt = "User Current Prompt: " + userText + "\nChat History: [";
         for(let i = 0; i < historyReach; i++) {

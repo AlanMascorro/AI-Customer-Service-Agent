@@ -63,9 +63,9 @@ async function generateVectorStore(vectorStore, db) {
      * Loading all the MongoDB documents
      */
     data.push(...data.concat(await firehouseDB.collection("Subs").find({}).toArray(),
+                await firehouseDB.collection("Sides").find({}).toArray(),
                 await firehouseDB.collection("Drinks").find({}).toArray(),
                 await firehouseDB.collection("Slides").find({}).toArray(),
-                await firehouseDB.collection("Sides").find({}).toArray(),
                 await firehouseDB.collection("Menus").find({}).toArray()));
 
     data.forEach((doc, index) => {
