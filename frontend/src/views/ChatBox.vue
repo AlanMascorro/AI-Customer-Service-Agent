@@ -110,7 +110,7 @@
       
         this.messages.push({ text: this.userInput, sender: "user" });
 
-        let url = "http://" + process.env.VUE_APP_HOST_IP + ":" + process.env.VUE_APP_HOST_PORT + "/api/query";
+        let url = "https://" + process.env.VUE_APP_HOST_IP + ":" + process.env.VUE_APP_HOST_PORT + "/api/query";
             
         const response = await axios.get(url, { 
           params: {
