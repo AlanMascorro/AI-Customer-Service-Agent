@@ -62,11 +62,18 @@
   import axios from 'axios';
   import { useAuth0 } from '@auth0/auth0-vue';
   import { gsap } from "gsap";
-  
+
   var centered = false;
  // var oldx;
  // var oldy;
   var tween;
+
+  let urlClient = "https://" + process.env.VUE_APP_HOST_IP + ":" + process.env.VUE_APP_HOST_PORT + "/api/client";
+  //urlClient = "api/client";
+  const serverClient = await axios.get(urlClient);
+  console.log(serverClient.data.clientID);
+  const clientID = serverClient.data.clientID;
+
   export default {
     setup() {
       const auth0 = useAuth0();
@@ -110,8 +117,8 @@
       
         this.messages.push({ text: this.userInput, sender: "user" });
 
-        let url = "https://" + process.env.VUE_APP_HOST_IP + ":" + process.env.VUE_APP_HOST_PORT + "/api/query";
-            
+        let url = "https://" + process.env.VUE_APP_HOST_IP + ":" + process.env.VUE_APP_HOST_PORT + `/api/query/${clientID}`;
+        //url = `api/query/${clientID}`;
         const response = await axios.get(url, { 
           params: {
             userInput: this.userInput
@@ -141,12 +148,13 @@
                 // print actual contents of object for debugging
                 console.log("key: " + key + " value: " + JSON.stringify(response.data.order[key], null, 2));
 
+                let totalPrice = 0.0;
                 for (let i = 0; i < response.data.order[key].length; i++) {
                   // calculate total price based on quantity
                   let price = orderItem[i].price;
                   let quantity = orderItem[i].quantity;
-                  if(price != NaN && quantity != NaN) {
-                    const totalPrice = parseFloat(orderItem[i].price) * parseInt(orderItem[i].quantity);  
+                  if(!isNaN(price) && !isNaN(quantity)) {
+                    totalPrice = parseFloat(orderItem[i].price) * parseInt(orderItem[i].quantity);  
                   }
 
                   // push new items into the cleared order array

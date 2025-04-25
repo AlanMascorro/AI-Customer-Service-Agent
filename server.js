@@ -12,6 +12,7 @@ import fs from "fs"; // File System
 import "./config.js"; // Environment Variables
 import path from "path"; // Path Manipulation for Portability
 import { fileURLToPath } from "url";
+import { v4 as uuid } from "uuid";
 
 const __filename = fileURLToPath(import.meta.url);
 
@@ -62,8 +63,8 @@ let instructions = `Use context info, chat_history, current order, & Human's req
                     ONLY USE ITEMS THAT ARE GIVEN IN CONTEXT FOR ORDERS
                     CLARIFY SIZE IF APPLICIABLE
                     NO NEED TO CONFIRM`;
-const chat_history = [];
-let currentOrder;
+let chat_history = {};
+let currentOrder = {};
 
 //--Page Request--//
 
@@ -75,18 +76,27 @@ let orderID = 0;
 let historyReach = 3;
 
 // app.get("/", (req, res) => {
-//     chat_history = [];
-//     currentOrder = {order: []};
-//     //res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
+//     res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
 // })
 
-app.get("/api/query", async (req, res) => {
+app.get("/api/client", async (req, res) => {
+    let id = uuid();
+    res.json({clientID: id});
+    chat_history[id] = [];
+    currentOrder[id] = {order:[]};
+})
+
+app.get("/api/query/:id", async (req, res) => {
     try {
         const userText = req.query.userInput;
-        chat_history.push("User: " + userText);
+        const id = req.params.id;
+        chat_history[id].push("User: " + userText);
         let inputPrompt = "User Current Prompt: " + userText + "\nChat History: [";
         for(let i = 0; i < historyReach; i++) {
-            inputPrompt += `${chat_history[i]}\n` ;
+            if(chat_history[i] == undefined) {
+                break;
+            }
+            inputPrompt += `${chat_history[id][i]}\n` ;
         }
         
         inputPrompt += "]";
@@ -96,29 +106,28 @@ app.get("/api/query", async (req, res) => {
         const response = await customerServiceAgent.invoke({
             system: instructions,
             input: inputPrompt,
-            currentOrder: JSON.stringify(currentOrder)
+            currentOrder: JSON.stringify(currentOrder[id])
         })
 
         console.log(response);
         let responseText = response.answer;
         if(responseText.indexOf("DONE") != -1) {
             try {
-                currentOrder.orderID = orderID;
-                await orderCollection.insertOne(currentOrder);
-                orderID++;
+                currentOrder[id].orderID = id;
+                await orderCollection.insertOne(currentOrder[id]);
                 let total = 0.0;
-                currentOrder.order.forEach((item) => {
+                currentOrder[id].order.forEach((item) => {
                     total += parseFloat(item.price);
                 });
                 responseText = `Thank you, your order will be ready shortly, your total is ${total}`;
-                res.json({ reply: responseText, order: currentOrder });
+                res.json({ reply: responseText, order: currentOrder[id] });
                 return;
             } catch(e) {
                 console.log(e);
             }
         } else if(responseText.indexOf("CLEAR") != -1) {
-            currentOrder={order: []}
-            res.json({reply: "Your order is cleared.", order: currentOrder})
+            currentOrder[id]={order: []}
+            res.json({reply: "Your order is cleared.", order: currentOrder[id]})
             return;
         } else if(responseText.indexOf("MENU") != -1) {
             res.json({reply: `===============================\n
@@ -200,7 +209,7 @@ app.get("/api/query", async (req, res) => {
                                 - One Size | $2.49 | 160 cal\n
 \n
                             🥤 Kids Drink\n
-                                - One Size | $1.49 | 80 cal`, order: currentOrder});
+                                - One Size | $1.49 | 80 cal`, order: currentOrder[id]});
                             return;
         }
 
@@ -212,19 +221,19 @@ app.get("/api/query", async (req, res) => {
             console.log(orderJSON);
             orderJSON = JSON.parse(orderJSON);
             console.log(orderJSON);
-            currentOrder = orderJSON;
+            currentOrder[id] = orderJSON;
             responseText = responseText.substring(0, responseText.indexOf("```"));
         } else {
             console.log("Error: No JSON generated");
         }
 
-        chat_history.push("AI: " + responseText);
+        chat_history[id].push("AI: " + responseText);
 
-        console.log(chat_history);
+        console.log(chat_history[id]);
         if(responseText.trim().length == 0) {
             responseText = "Got it, anything else?";
         }
-        res.json({ reply: responseText, order: currentOrder });
+        res.json({ reply: responseText, order: currentOrder[id] });
     } catch (error) {
         console.error("Error processing message:", error);
         res.status(500).json({ error: "Something went wrong" });
