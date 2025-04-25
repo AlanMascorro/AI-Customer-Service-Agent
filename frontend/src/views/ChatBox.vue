@@ -68,7 +68,7 @@
  // var oldy;
   var tween;
 
-  let urlClient = "https://" + process.env.VUE_APP_HOST_IP + ":" + process.env.VUE_APP_HOST_PORT + "/api/client";
+  let urlClient = process.env.VUE_APP_HOST_IP + ":" + process.env.VUE_APP_HOST_PORT + "/api/client";
   //urlClient = "api/client";
   const serverClient = await axios.get(urlClient);
   console.log(serverClient.data.clientID);
