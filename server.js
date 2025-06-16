@@ -120,7 +120,8 @@ app.get("/api/query/:id", async (req, res) => {
                 await orderCollection.insertOne(currentOrder[id]);
                 //let total = 0.0;
                 responseText = `Thank you, your order will be ready shortly`;
-                res.json({ reply: responseText, order: currentOrder[id] });
+                currentOrder[id] = "STOPPED"
+                res.json({ reply: responseText, order: currentOrder[id]});
                 return;
             } catch(e) {
                 console.log(e);
