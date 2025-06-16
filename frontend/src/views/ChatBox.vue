@@ -129,7 +129,7 @@
         this.messages.push({ text: response.data.reply, sender: "bot" });
 
 
-        if (response.data.order) {
+        if (response.data.order != "STOPPED") {
           // clear the current order array to overwrite it
           // we do this so that the ticket will not display the following:
           // item1 ==> (action: add item) ==> item1, item1, item2
